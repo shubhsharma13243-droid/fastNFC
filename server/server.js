@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: process.env.CLIENT_URL || true }));
 app.use(express.json());
 
 // Uploaded logos and cover photos
@@ -15,9 +15,8 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/business", require("./routes/business"));
 app.use("/api/public", require("./routes/public"));
 
-// In production, serve the built React app from the same server
-if (process.env.NODE_ENV === "production") {
-  const dist = path.join(__dirname, "../client/dist");
+const dist = path.join(__dirname, "../client/dist");
+if (require("fs").existsSync(path.join(dist, "index.html"))) {
   app.use(express.static(dist));
   app.get("*", (req, res) => res.sendFile(path.join(dist, "index.html")));
 }

@@ -1,3 +1,5 @@
+const API = import.meta.env.VITE_API_URL || "";
+export const assetUrl = (p) => (p && !p.startsWith("http") ? API + p : p || "");
 export const getToken = () => localStorage.getItem("token");
 export const setToken = (t) => (t ? localStorage.setItem("token", t) : localStorage.removeItem("token"));
 
@@ -7,7 +9,7 @@ async function request(path, options = {}) {
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(`/api${path}`, { ...options, headers });
+  const res = await fetch(`${API}/api${path}`, { ...options, headers });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.message || "Something went wrong");
   return data;

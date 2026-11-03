@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { api } from "../api";
+import { api, assetUrl } from "../api";
 
 const withProtocol = (v) => (/^https?:\/\//.test(v) ? v : `https://${v}`);
 const whatsapp = (v) => (/^https?:\/\//.test(v) ? v : `https://wa.me/${v.replace(/\D/g, "")}`);
@@ -36,9 +36,9 @@ export default function PublicPage() {
 
   return (
     <main className="shop">
-      <div className="cover" style={b.coverUrl ? { backgroundImage: `url(${b.coverUrl})` } : undefined} />
+      <div className="cover" style={b.coverUrl ? { backgroundImage: `url(${assetUrl(b.coverUrl)})` } : undefined} />
       <div className="shop-body">
-        {b.logoUrl && <img className="logo" src={b.logoUrl} alt={`${b.name} logo`} />}
+        {b.logoUrl && <img className="logo" src={assetUrl(b.logoUrl)} alt={`${b.name} logo`} />}
         <h1>{b.name}</h1>
         {b.description && <p className="desc">{b.description}</p>}
 

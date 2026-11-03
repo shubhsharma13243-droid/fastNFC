@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
-import { api, setToken } from "../api";
-
+import { api, setToken, assetUrl } from "../api";
 const LINK_FIELDS = [
   ["instagram", "Instagram", "https://instagram.com/yourshop"],
   ["facebook", "Facebook", "https://facebook.com/yourshop"],
@@ -105,11 +104,11 @@ export default function Dashboard() {
             <h2>Logo and cover photo</h2>
             <div className="images">
               <label className="upload">
-                {b.logoUrl ? <img src={b.logoUrl} alt="Logo" className="logo-prev" /> : <span>Add logo</span>}
+                {b.logoUrl ? <img src={assetUrl(b.logoUrl)} alt="Logo" className="logo-prev" /> : <span>Add logo</span>}
                 <input type="file" accept="image/*" hidden onChange={(e) => upload("logo", e.target.files[0])} />
               </label>
               <label className="upload wide">
-                {b.coverUrl ? <img src={b.coverUrl} alt="Cover" /> : <span>Add cover photo</span>}
+                {b.coverUrl ? <img src={assetUrl(b.coverUrl)} alt="Cover" /> : <span>Add cover photo</span>}
                 <input type="file" accept="image/*" hidden onChange={(e) => upload("cover", e.target.files[0])} />
               </label>
             </div>
